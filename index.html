@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cagayan Valley Anglers Club | Saltwater Fishing in Gonzaga & Santa Ana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS */
+        .logo-text {
+            font-family: 'Arial Black', sans-serif;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #3182ce;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        .fishing-spot-card img {
+            transition: transform 0.3s ease;
+        }
+        .fishing-spot-card:hover img {
+            transform: scale(1.05);
+        }
+        .weather-card {
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        #mobile-menu {
+            transition: all 0.3s ease;
+        }
+        .tabs button.active {
+            border-bottom: 2px solid #3182ce;
+            color: #3182ce;
+            font-weight: 600;
+        }
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .responsive-map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-blue-50">
+    <!-- Header with Logo -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-20 h-20 -mt-2 -mb-2 rounded-full flex items-center justify-center mr-4 overflow-hidden">
+                    <img src="https://t3.ftcdn.net/jpg/08/53/99/00/360_F_853990026_ZhCRurGDqCbaAVzl1f9Vn7rocorFKXZc.jpg" alt="Cagayan Valley Anglers Club Logo" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h1 class="logo-text text-2xl font-bold text-blue-800">Cagayan Valley</h1>
+                    <h2 class="logo-text text-xl text-blue-600">Anglers Club</h2>
+                </div>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="nav-link text-blue-900 font-medium">Home</a>
+                <a href="#about" class="nav-link text-blue-900 font-medium">About</a>
+                <a href="#spots" class="nav-link text-blue-900 font-medium">Fishing Spots</a>
+                <a href="#gallery" class="nav-link text-blue-900 font-medium">Gallery</a>
+                <a href="#videos" class="nav-link text-blue-900 font-medium">Videos</a>
+                <a href="#board" class="nav-link text-blue-900 font-medium">Board</a>
+                <a href="#sponsors" class="nav-link text-blue-900 font-medium">Sponsors</a>
+                <a href="#weather" class="nav-link text-blue-900 font-medium">Conditions</a>
+                <a href="#contact" class="nav-link text-blue-900 font-medium">Contact</a>
+                <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Join Us</a>
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <button id="menu-toggle" class="md:hidden text-blue-900 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation (hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full left-0">
+            <div class="container mx-auto px-4 py-3">
+                <a href="#home" class="block py-2 text-blue-900 font-medium">Home</a>
+                <a href="#about" class="block py-2 text-blue-900 font-medium">About</a>
+                <a href="#spots" class="block py-2 text-blue-900 font-medium">Fishing Spots</a>
+                <a href="#gallery" class="block py-2 text-blue-900 font-medium">Gallery</a>
+                <a href="#videos" class="block py-2 text-blue-900 font-medium">Videos</a>
+                <a href="#board" class="block py-2 text-blue-900 font-medium">Board</a>
+                <a href="#sponsors" class="block py-2 text-blue-900 font-medium">Sponsors</a>
+                <a href="#weather" class="block py-2 text-blue-900 font-medium">Conditions</a>
+                <a href="#contact" class="block py-2 text-blue-900 font-medium">Contact</a>
+                <a href="#" class="block bg-blue-600 text-white px-4 py-2 rounded-lg my-2 text-center">Join Us</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-blue-900 text-white">
+        <div class="container mx-auto px-4 py-16 md:py-32 relative z-10">
+            <div class="max-w-2xl">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">Experience World-Class Fishing in Cagayan Valley</h1>
+                <p class="text-xl mb-8">The Cagayan Valley Anglers Club promotes sustainable saltwater fishing and coastal conservation in Gonzaga and Santa Ana.</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#about" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-center transition">About Our Club</a>
+                    <a href="#spots" class="bg-transparent border-2 border-white hover:bg-white hover:text-blue-900 text-white font-bold py-3 px-6 rounded-lg text-center transition">View Fishing Spots</a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-transparent opacity-95"></div>
+        <div class="absolute inset-0 bg-[url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4noVzlaAinNIKj9ww2_0zg1ZU72GfPcyywrzeGwF68t-eTKTFxZItnDeORGrhTrFllR78RxzGQO10L5bJ9Lwnf0qyxJc7M6vSon9JAWaX3Dot5JJzyy9UvfWUapevzUCh7iXHDHY=w540-h312-n-k-no')] bg-cover bg-center"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">About Cagayan Valley Anglers Club</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                <div class="lg:w-1/2">
+                    <div class="bg-blue-100 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-bold text-blue-900 mb-4">Who We Are</h3>
+                        <p class="mb-4 text-blue-900">Founded in 2015, the Cagayan Valley Anglers Club is a passionate community of saltwater fishing enthusiasts dedicated to promoting sustainable fishing practices in Northern Cagayan, particularly in the municipalities of Gonzaga and Santa Ana.</p>
+                        <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-lg mt-8 mb-4">
+                            <h4 class="text-2xl font-bold text-blue-800 mb-2">🎯 Mission</h4>
+                            <p class="text-blue-900 mb-4">To bring together saltwater fishing enthusiasts in Gonzaga and Santa Ana, fostering camaraderie, responsible angling, and a deeper respect for our coastal marine life and traditions.</p>
+                            <h4 class="text-2xl font-bold text-blue-800 mb-2">🌅 Vision</h4>
+                            <p class="text-blue-900">To be a united local community of anglers known for promoting sustainable fishing practices, sharing knowledge, and celebrating the beauty and bounty of Cagayan Valley's coastal waters.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Fishing community" class="w-full h-auto rounded-lg shadow-lg">
+                        <div class="absolute -bottom-6 -right-6 bg-yellow-500 p-4 rounded-lg shadow-xl hidden md:block">
+                            <p class="text-lg font-bold text-white">200+ Members<br>Since 2015</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fishing Spots Section -->
+    <section id="spots" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Prime Fishing Spots in Cagayan Valley</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+            </div>
+            
+            <!-- Location Tabs -->
+            <div class="flex justify-center mb-8">
+                <div class="flex border-b border-gray-300 tabs">
+                    <button onclick="showTab('gonzaga')" class="px-6 py-3 font-medium text-gray-700 active" id="default-tab">Gonzaga Spots</button>
+                    <button onclick="showTab('santa-ana')" class="px-6 py-3 font-medium text-gray-700">Santa Ana Areas</button>
+                </div>
+            </div>
+            
+            <!-- Gonzaga Spots Tab Content (shown by default) -->
+            <div id="gonzaga" class="tab-content">
+                <h3 class="text-2xl font-bold text-blue-800 mb-6 text-center">Top Fishing Locations in Gonzaga</h3>
+                <p class="text-center text-blue-900 mb-8 max-w-3xl mx-auto">Gonzaga offers diverse fishing opportunities from shore, boat, and kayak targeting species like GT, trevally, tuna, and more.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Spot 1 -->
+                    <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sSan%20Jose%20Point%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="text-xl font-bold text-blue-900 mb-2">San Jose Point</h4>
+                            <p class="text-blue-800">Best for: Giant Trevally, Spanish Mackerel</p>
+                            <p class="text-gray-600 text-sm mt-2">Rocky point with strong currents. Accessible by boat. Prime spot at high tide.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Spot 2 -->
+                    <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sMagapit%20Reef%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="text-xl font-bold text-blue-900 mb-2">Magapit Reef</h4>
+                            <p class="text-blue-800">Best for: Coral Trout, Snapper</p>
+                            <p class="text-gray-600 text-sm mt-2">Shallow reef system known for great light tackle fishing. Watch for coral heads.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Spot 3 -->
+                    <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sBaua%20River%20Mouth%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="text-xl font-bold text-blue-900 mb-2">Baua River Mouth</h4>
+                            <p class="text-blue-800">Best for: Barramundi, Mangrove Jack</p>
+                            <p class="text-gray-600 text-sm mt-2">Estuary fishing at its finest. Best fished on incoming tide with live bait.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- View More Button (shows all spots in JavaScript) -->
+                    <div class="text-center col-span-1 md:col-span-2 lg:col-span-3">
+                        <button id="view-more-gonzaga" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">View All 14 Gonzaga Spots</button>
+                    </div>
+                    
+                    <!-- Hidden Spots (will be shown when clicking "View More") -->
+                    <div id="more-gonzaga-spots" class="hidden col-span-1 md:col-span-2 lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                        <!-- Spot 4 -->
+                        <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                            <div class="map-container">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sCalayan%20Beach%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    </div>
+                            <div class="p-4">
+                                <h4 class="text-xl font-bold text-blue-900 mb-2">Calayan Beach</h4>
+                                <p class="text-blue-800">Best for: Surf Perch, Bonefish</p>
+                                <p class="text-gray-600 text-sm mt-2">Long sandy beach perfect for surf fishing. Great for beginners and experienced anglers alike.</p>
+                </div>
+            </div>
+            
+                        <!-- Spot 5 -->
+                        <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                            <div class="map-container">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sPattao%20Point%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-xl font-bold text-blue-900 mb-2">Pattao Point</h4>
+                                <p class="text-blue-800">Best for: Yellowtail Kingfish, Tuna</p>
+                                <p class="text-gray-600 text-sm mt-2">Deep water point with strong currents. Excellent for trolling and jigging.</p>
+                            </div>
+                        </div>
+
+                        <!-- Spot 6 -->
+                    <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <div class="map-container">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sMinanga%20Cove%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                        <div class="p-4">
+                                <h4 class="text-xl font-bold text-blue-900 mb-2">Minanga Cove</h4>
+                                <p class="text-blue-800">Best for: Grouper, Snapper</p>
+                                <p class="text-gray-600 text-sm mt-2">Protected cove with rocky bottom. Great for bottom fishing and kayak fishing.</p>
+                        </div>
+                    </div>
+                    
+                        <!-- Spot 7 -->
+                    <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <div class="map-container">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sIsca%20Reef%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                        <div class="p-4">
+                                <h4 class="text-xl font-bold text-blue-900 mb-2">Isca Reef</h4>
+                            <p class="text-blue-800">Best for: Coral Trout, Emperor</p>
+                                <p class="text-gray-600 text-sm mt-2">Shallow reef system with clear waters. Perfect for light tackle and fly fishing.</p>
+                        </div>
+                    </div>
+                    
+                        <!-- Spot 8 -->
+                    <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <div class="map-container">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sAmunitan%20Point%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                        <div class="p-4">
+                                <h4 class="text-xl font-bold text-blue-900 mb-2">Amunitan Point</h4>
+                                <p class="text-blue-800">Best for: Wahoo, Spanish Mackerel</p>
+                                <p class="text-gray-600 text-sm mt-2">Deep water point with strong currents. Excellent for trolling and jigging.</p>
+                        </div>
+                    </div>
+
+                        <!-- Spot 9 -->
+                        <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                            <div class="map-container">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sTabbac%20Beach%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
+                            <div class="p-4">
+                                <h4 class="text-xl font-bold text-blue-900 mb-2">Tabbac Beach</h4>
+                                <p class="text-blue-800">Best for: Surf Perch, Bonefish</p>
+                                <p class="text-gray-600 text-sm mt-2">Long sandy beach perfect for surf fishing. Great for beginners and experienced anglers alike.</p>
+            </div>
+        </div>
+
+                        <!-- Spot 10 -->
+                        <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                            <div class="map-container">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sCalao%20Reef%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+                            <div class="p-4">
+                                <h4 class="text-xl font-bold text-blue-900 mb-2">Calao Reef</h4>
+                                <p class="text-blue-800">Best for: Coral Trout, Emperor</p>
+                                <p class="text-gray-600 text-sm mt-2">Shallow reef system with clear waters. Perfect for light tackle and fly fishing.</p>
+                </div>
+            </div>
+            
+                        <!-- Spot 11 -->
+                        <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                            <div class="map-container">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sBatal%20Point%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            </div>
+                    <div class="p-4">
+                                <h4 class="text-xl font-bold text-blue-900 mb-2">Batal Point</h4>
+                                <p class="text-blue-800">Best for: Yellowtail Kingfish, Tuna</p>
+                                <p class="text-gray-600 text-sm mt-2">Deep water point with strong currents. Excellent for trolling and jigging.</p>
+                    </div>
+                </div>
+                
+                        <!-- Spot 12 -->
+                        <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                            <div class="map-container">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sCalao%20Beach%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            </div>
+                    <div class="p-4">
+                                <h4 class="text-xl font-bold text-blue-900 mb-2">Calao Beach</h4>
+                                <p class="text-blue-800">Best for: Surf Perch, Bonefish</p>
+                                <p class="text-gray-600 text-sm mt-2">Long sandy beach perfect for surf fishing. Great for beginners and experienced anglers alike.</p>
+                    </div>
+                </div>
+                
+                        <!-- Spot 13 -->
+                        <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                            <div class="map-container">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sBatal%20Reef%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            </div>
+                    <div class="p-4">
+                                <h4 class="text-xl font-bold text-blue-900 mb-2">Batal Reef</h4>
+                                <p class="text-blue-800">Best for: Coral Trout, Emperor</p>
+                                <p class="text-gray-600 text-sm mt-2">Shallow reef system with clear waters. Perfect for light tackle and fly fishing.</p>
+                    </div>
+                </div>
+                
+                        <!-- Spot 14 -->
+                        <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                            <div class="map-container">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.666763337576!2d121.99441301534833!3d18.28981078842862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sAmunitan%20Reef%2C%20Gonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            </div>
+                    <div class="p-4">
+                                <h4 class="text-xl font-bold text-blue-900 mb-2">Amunitan Reef</h4>
+                                <p class="text-blue-800">Best for: Coral Trout, Emperor</p>
+                                <p class="text-gray-600 text-sm mt-2">Shallow reef system with clear waters. Perfect for light tackle and fly fishing.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Santa Ana Spots Tab Content (hidden by default) -->
+            <div id="santa-ana" class="tab-content hidden">
+                <h3 class="text-2xl font-bold text-blue-800 mb-6 text-center">Island Fishing Adventures in Santa Ana</h3>
+                <p class="text-center text-blue-900 mb-8 max-w-3xl mx-auto">Santa Ana is famous for its island fishing opportunities with Palaui Island being a premier destination for both sport fishing and scenic beauty.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Spot 1 -->
+                    <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.9489460618993!2d122.40704361534361!3d18.57212508645815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5fb5f0bbdb75%3A0x5f87b10b7c8d29aa!2sPalaui%20Island!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                    <div class="p-4">
+                            <h4 class="text-xl font-bold text-blue-900 mb-2">Palaui Island</h4>
+                            <p class="text-blue-800">Best for: Dogtooth Tuna, Wahoo</p>
+                            <p class="text-gray-600 text-sm mt-2">World-class game fishing around this protected island. Expect strong currents.</p>
+                    </div>
+                </div>
+                
+                    <!-- Spot 2 -->
+                    <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.9489460618993!2d122.40704361534361!3d18.57212508645815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5fb5f0bbdb75%3A0x5f87b10b7c8d29aa!2sApulagan%20Island!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                    <div class="p-4">
+                            <h4 class="text-xl font-bold text-blue-900 mb-2">Apulagan Island</h4>
+                            <p class="text-blue-800">Best for: Coral Trout, Emperor</p>
+                            <p class="text-gray-600 text-sm mt-2">Healthy reef system with excellent bottom fishing. Protected from most winds.</p>
+                    </div>
+                </div>
+                
+                    <!-- Spot 3 (replace Crocodile Island with Santa Ana map) -->
+                    <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.947397060018!2d121.9972728153436!3d18.57249908645792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sSanta%20Ana%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                    <div class="p-4">
+                            <h4 class="text-xl font-bold text-blue-900 mb-2">Santa Ana, Cagayan</h4>
+                            <p class="text-blue-800">Explore the whole municipality</p>
+                            <p class="text-gray-600 text-sm mt-2">View the full map of Santa Ana to discover more fishing spots, resorts, and natural attractions in the area.</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Catch Gallery</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+                    </div>
+            <!-- Carousel Gallery -->
+            <div class="relative">
+                <button id="gallery-prev" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-80 rounded-full shadow p-2 text-2xl text-blue-700 hover:bg-blue-100 focus:outline-none"><i class="fas fa-chevron-left"></i></button>
+                <div id="gallery-carousel" class="flex overflow-x-hidden space-x-4 transition-all duration-300">
+                    <!-- Images will be inserted here by JS -->
+                </div>
+                <button id="gallery-next" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-80 rounded-full shadow p-2 text-2xl text-blue-700 hover:bg-blue-100 focus:outline-none"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+        <script>
+            // Gallery images (add more as needed)
+            const galleryImages = [
+                {
+                    src: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+                    title: 'Giant Trevally - 28kg',
+                    desc: 'San Jose Point, Sept 2022'
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80',
+                    title: 'Spanish Mackerel - 12kg',
+                    desc: 'Magapit Reef, May 2023'
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80',
+                    title: 'Barramundi - 7.5kg',
+                    desc: 'Baua River, March 2023'
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80',
+                    title: 'Coral Trout - 5.8kg',
+                    desc: 'Calayan Reef, Jan 2023'
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80',
+                    title: 'Dogtooth Tuna - 45kg',
+                    desc: 'Palaui Island, Nov 2022'
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=800&q=80',
+                    title: 'Wahoo - 22kg',
+                    desc: 'Palaui Island, July 2023'
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80',
+                    title: 'Mangrove Jack - 6.2kg',
+                    desc: 'Crocodile Island, Oct 2022'
+                },
+                {
+                    src: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80',
+                    title: 'Rainbow Runner - 4.5kg',
+                    desc: 'Apulagan Island, Aug 2023'
+                }
+            ];
+            const imagesPerView = 4;
+            let startIdx = 0;
+            const carousel = document.getElementById('gallery-carousel');
+            function updateImagesPerView() {
+                if (window.innerWidth < 640) {
+                    imagesPerView = 1;
+                } else if (window.innerWidth < 1024) {
+                    imagesPerView = 2;
+                } else {
+                    imagesPerView = 4;
+                }
+            }
+            function renderGallery() {
+                clampStartIdx();
+                carousel.innerHTML = '';
+                carousel.style.justifyContent = 'center';
+                for (let i = startIdx; i < Math.min(startIdx + imagesPerView, galleryImages.length); i++) {
+                    const img = galleryImages[i];
+                    const div = document.createElement('div');
+                    div.className = 'gallery-item bg-gray-900 overflow-hidden rounded-lg shadow-md transition flex-shrink-0 w-64 mx-2 cursor-pointer';
+                    div.innerHTML = `<img src="${img.src}" alt="${img.title}" class="w-full h-64 object-cover"><div class="p-4"><h3 class="font-bold text-white">${img.title}</h3><p class="text-sm text-gray-200">${img.desc}</p></div>`;
+                    div.addEventListener('click', function() { openModal(img.src); });
+                    carousel.appendChild(div);
+                }
+            }
+            function clampStartIdx() {
+                if (startIdx > galleryImages.length - imagesPerView) {
+                    startIdx = Math.max(0, galleryImages.length - imagesPerView);
+                }
+            }
+            document.getElementById('gallery-prev').addEventListener('click', function() {
+                if (startIdx > 0) {
+                    startIdx--;
+                    renderGallery();
+                }
+            });
+            document.getElementById('gallery-next').addEventListener('click', function() {
+                if (startIdx < galleryImages.length - imagesPerView) {
+                    startIdx++;
+                    renderGallery();
+                }
+            });
+            window.addEventListener('resize', () => {
+                updateImagesPerView();
+                clampStartIdx();
+                renderGallery();
+            });
+            updateImagesPerView();
+            clampStartIdx();
+            renderGallery();
+            // Mouse/touch drag support
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.classList.add('cursor-grabbing');
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+            });
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.classList.remove('cursor-grabbing');
+            });
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.classList.remove('cursor-grabbing');
+            });
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 1.5; // scroll-fast
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+            // Touch support
+            carousel.addEventListener('touchstart', (e) => {
+                isDown = true;
+                startX = e.touches[0].pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+            });
+            carousel.addEventListener('touchend', () => {
+                isDown = false;
+            });
+            carousel.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                const x = e.touches[0].pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 1.5;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+        </script>
+    </section>
+
+    <!-- Video Highlights Section -->
+    <section id="videos" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Video Highlights</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+                <p class="text-blue-900 max-w-3xl mx-auto mt-4">Experience our fishing adventures through these action-packed videos from our members.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Video 1 -->
+                <div>
+                    <div class="video-wrapper bg-gray-900 rounded-lg overflow-hidden shadow-lg">
+                        <iframe src="https://www.youtube.com/embed/VNIAdpPKbaY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    </div>
+                <!-- Video 2 -->
+                <div>
+                    <div class="video-wrapper bg-gray-900 rounded-lg overflow-hidden shadow-lg">
+                        <iframe src="https://www.youtube.com/embed/kWGfZqN6ENM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    </div>
+                <!-- Video 3 -->
+                <div>
+                    <div class="video-wrapper bg-gray-900 rounded-lg overflow-hidden shadow-lg">
+                        <iframe src="https://www.youtube.com/embed/bncm468j1UE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    </div>
+                <!-- Video 4 -->
+                <div>
+                    <div class="video-wrapper bg-gray-900 rounded-lg overflow-hidden shadow-lg">
+                        <iframe src="https://www.youtube.com/embed/JeBO4RMCTDc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    </div>
+                <!-- Hidden More Videos -->
+                <div id="more-videos" class="hidden col-span-1 lg:col-span-2">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                        <!-- Video 5 -->
+                        <div>
+                            <div class="video-wrapper bg-gray-900 rounded-lg overflow-hidden shadow-lg">
+                                <iframe src="https://www.youtube.com/embed/CNA0yhFiz8A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <button id="view-more-videos" class="inline-flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                    <i class="fab fa-youtube mr-2"></i> View More Videos
+                </button>
+            </div>
+            <script>
+                document.getElementById('view-more-videos').addEventListener('click', function() {
+                    const moreVideos = document.getElementById('more-videos');
+                    if (moreVideos.classList.contains('hidden')) {
+                        moreVideos.classList.remove('hidden');
+                        this.innerHTML = '<i class="fab fa-youtube mr-2"></i> Show Fewer Videos';
+                    } else {
+                        moreVideos.classList.add('hidden');
+                        this.innerHTML = '<i class="fab fa-youtube mr-2"></i> View More Videos';
+                    }
+                    this.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+                });
+            </script>
+        </div>
+    </section>
+
+    <!-- Board of Directors Section -->
+    <section id="board" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Board of Directors</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+                <p class="text-blue-900 max-w-3xl mx-auto mt-4">Meet the passionate individuals who guide our club's mission and activities.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-center items-center">
+                <!-- Member 1 -->
+                <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl border border-blue-100 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-center h-full min-h-[400px] flex flex-col justify-between">
+                    <div class="w-32 h-32 mx-auto rounded-full border-4 border-blue-600 ring-4 ring-white shadow-lg overflow-hidden mb-6">
+                        <img src="https://scontent.fcrk3-2.fna.fbcdn.net/v/t1.6435-9/153310151_5190631847645572_3850483484831899691_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeFx5OJsTatdqOq1utV9NuIVXC7UzdA0agdcLtTN0DRqB8yCqhiVUtBps04EnOqqzgi51PmonBeuZpXxUmNLmjrx&_nc_ohc=moDdqTohpi8Q7kNvwGcR_c3&_nc_oc=Admoz_f5yk0nOLTh43-ihC6s5O-MEmJ9PvYokh6zAhKIeudW036n9JBkPWHSiODTwL8&_nc_zt=23&_nc_ht=scontent.fcrk3-2.fna&_nc_gid=NIMKv6q8doeDYGC7adHF6A&oh=00_AfIqufazfjiMgiEPdfWzdKfgoY-I3MTPrZrxwc4mVpNhdg&oe=68677565" alt="Juan Dela Cruz" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900">Glenn Salvador
+                    <p class="text-blue-700 font-medium">President</p>
+                    <p class="text-gray-600 mt-2 text-sm font-bold">A respected leader in the local fishing community with decades of hands-on angling experience. Committed to preserving marine biodiversity and promoting the cultural and recreational importance of saltwater fishing, he inspires conservation and supports sustainable practices among anglers and coastal residents.</p>
+                </div>
+                
+                <!-- Member 2 -->
+                <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl border border-blue-100 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-center h-full min-h-[400px] flex flex-col justify-between">
+                    <div class="w-32 h-32 mx-auto rounded-full border-4 border-blue-600 ring-4 ring-white shadow-lg overflow-hidden mb-6">
+                        <img src="https://scontent.fcrk3-1.fna.fbcdn.net/v/t39.30808-6/476939203_598678169671067_4039825609471411721_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=86c6b0&_nc_eui2=AeFe08KDDidYhcg6fpwSxHZejTQSiaCdajqNNBKJoJ1qOshaMwMRa0vb6pWlZsDxo0lXtuw8DA1t8u_PU37ohVv_&_nc_ohc=l_Xl6iJbdqUQ7kNvwH9DvxU&_nc_oc=AdkpeROoMqCYGFW9UKmLZnnMQ9Hpd94cwSFQcJdJ-0SWs9pkcLusAp-vqHd3uQJfvWs&_nc_zt=23&_nc_ht=scontent.fcrk3-1.fna&_nc_gid=28nq6AUXYn4Iwix6itnWqA&oh=00_AfIhRdI6zroh9XM6MvMq63pqrOM59nw5KFkSQFeTVB70PA&oe=6845C13C" alt="Vin Baloloy" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900">Vin Baloloy</h3>
+                    <p class="text-blue-700 font-medium">Vice President</p>
+                    <p class="text-gray-600 mt-2 text-sm font-bold">A passionate community leader and lifelong angler committed to promoting responsible fishing, organizing local tournaments, and building strong connections with fisherfolk. He works to protect marine life, support sustainable practices, and bring the angling community closer through events and education.</p>
+                </div>
+                
+                <!-- Member 3 -->
+                <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl border border-blue-100 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-center h-full min-h-[400px] flex flex-col justify-between">
+                    <div class="w-32 h-32 mx-auto rounded-full border-4 border-blue-600 ring-4 ring-white shadow-lg overflow-hidden mb-6">
+                        <img src="https://scontent.fcrk3-2.fna.fbcdn.net/v/t39.30808-6/480509092_3873950586179645_6573740477445186702_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeGh_Wbld9ULZd9qgRdvlFZO3OU9rhJhjEXc5T2uEmGMRXlAW7IlI8t5gaflAZFDe5dXYI0lllsEwklNSXbX588u&_nc_ohc=93zvQOCcNYMQ7kNvwGcsdBO&_nc_oc=Admvs8YCIyjJLpbmiutmlCL__8K8jaGtRUji5wiEJw8V_-29dDTztd96E3APWEIksNA&_nc_zt=23&_nc_ht=scontent.fcrk3-2.fna&_nc_gid=WM5kiVhcWY7GT9gQPVyLdw&oh=00_AfK3RzOKIArioPjLMqNy2MI0s8l8SqwrZwatqSG5wSd6xA&oe=6845BCD3" alt="Mark Angelo Doctolero" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900">Mark Angelo Doctolero</h3>
+                    <p class="text-blue-700 font-medium">Secretary</p>
+                    <p class="text-gray-600 mt-2 text-sm font-bold">A tech-savvy student and avid angler who built and manages our website. As Secretary, he handles communications, keeps meeting records, and updates the site with news, catch reports, and events. His work helps bring new anglers into the community and keeps everything running smoothly online.</p>
+                </div>
+                
+                <!-- Member 4 -->
+                <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl border border-blue-100 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-center h-full min-h-[400px] flex flex-col justify-between">
+                    <div class="w-32 h-32 mx-auto rounded-full border-4 border-blue-600 ring-4 ring-white shadow-lg overflow-hidden mb-6">
+                        <img src="https://scontent.fcrk3-2.fna.fbcdn.net/v/t39.30808-6/487146970_9839391559438309_267081778951609542_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeE8HA3OlC4lOU_-C4FoPzOArMugMCLRz2usy6AwItHPaxwC_FukQ9L2WytEZF5E3sZt0zYcbruUKaQ6JDnrezXC&_nc_ohc=KtxABrL_Kt8Q7kNvwFS5_4k&_nc_oc=AdmHQPhsDyI66_Da2jbZ82Pgl9cjXSS6U7f-GpV53kpBijdLAxp0faaXQ_Xj3oTqlk4&_nc_zt=23&_nc_ht=scontent.fcrk3-2.fna&_nc_gid=bdfR5n4TgQa8aPNjUWYr6g&oh=00_AfJ2kKIhu0UjjyzG-YJbCRQb_d5X1xdWn5zaw9n5sDNm8g&oe=6845CB3C" alt="Ronel Villarao Ugale" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900">Ronel Villarao Ugale</h3>
+                    <p class="text-blue-700 font-medium">Treasurer</p>
+                    <p class="text-gray-600 mt-2 text-sm font-bold">A seasoned giant trevally angler hailed as a 'GT god hunter' across Gonzaga and its coastal waters. With a sharp eye for both big game and budget details, he ensures financial integrity while fueling the passion that drives our events, sponsorships, and conservation efforts.</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsors Section -->
+    <section id="sponsors" class="py-16 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Our Valued Sponsors</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+                <p class="text-blue-900 max-w-3xl mx-auto mt-4">We appreciate the support of these organizations that help make our programs possible.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 justify-center items-center">
+                <!-- Sponsor 1 -->
+                <a href="https://shopee.ph/fishersofmen" target="_blank" rel="noopener" class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition flex flex-col items-center justify-center h-32">
+                    <img src="https://down-bs-ph.img.susercontent.com/3b588791f5f6c98fd98565ac5b6fa111_tn.webp" alt="FishersofMen - Sport Fishing" class="max-h-16 mb-2">
+                    <span class="text-blue-900 font-bold text-sm text-center">FishersofMen - Sport Fishing</span>
+                </a>
+                <!-- Sponsor 2 -->
+                <a href="https://goodcatchfish.com/" target="_blank" rel="noopener" class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition flex flex-col items-center justify-center h-32">
+                    <img src="https://goodcatchfish.com/wp-content/uploads/2020/02/1.jpg" alt="GoodcatchFish" class="max-h-16 mb-2">
+                    <span class="text-blue-900 font-bold text-sm text-center">GoodcatchFish</span>
+                </a>
+                <!-- Sponsor 3 -->
+                <a href="https://web.facebook.com/profile.php?id=100094939933606" target="_blank" rel="noopener" class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition flex flex-col items-center justify-center h-32">
+                    <img src="https://scontent.fcrk3-2.fna.fbcdn.net/v/t39.30808-6/356192743_686671919950899_885081612207066166_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF6Un8kLcxb6cOth9-tELOYxuop5_-2D7bG6inn_7YPtgGnDjKIl2-HXH2XCGWDcBndnlp5xnItxX_49q_qBJEN&_nc_ohc=6oMU6wZ94eQQ7kNvwEVp0Jb&_nc_oc=AdkJ-I5khP1ue74vw8tcUyyizB8dNRNiJszQvpF5bAoc4O5L3yGBh72yVQgyl-cezz0&_nc_zt=23&_nc_ht=scontent.fcrk3-2.fna&_nc_gid=XgCfnjHZ5rpmodOyoiJy-w&oh=00_AfL8Hh0zgYLVg2Y4CoYd_mhTarJp1PAMTHd55B72aGTcHg&oe=6845BD4D" alt="MAGX Tackle Shop" class="max-h-16 mb-2">
+        <span class="text-blue-900 font-bold text-sm text-center">MAGX Tackle Shop</span>
+                </a>
+                <!-- Sponsor 4 -->
+                <a href="https://web.facebook.com/paoayanglers" target="_blank" rel="noopener" class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition flex flex-col items-center justify-center h-32">
+                    <img src="https://scontent.fcrk3-2.fna.fbcdn.net/v/t39.30808-6/422840835_790246806454469_1540073998977766087_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHf7b2vaF9D4i_9UgEAbzmZYrBZEH7xpBlisFkQfvGkGYOFECkd6X0nvObgIeWaUQilQyRMKAIf5zsfxYyS0AjQ&_nc_ohc=ijLlb8N2_gkQ7kNvwE3w7wh&_nc_oc=AdnKHYGgLtuOGTB_r2a-VwMAJ-UQ4hbicNVicHiHurQa72DHUqBs_uxR1kvMyWX82dQ&_nc_zt=23&_nc_ht=scontent.fcrk3-2.fna&_nc_gid=ZXLXVASvutVKiiBe6T_r2w&oh=00_AfLZDq71fGf2VRU8CV8OW96r-SQReCdKeTKf0hDnx7ap3A&oe=68459F79" alt="Paoay Anglers/BP21 Anglers Pod & Tackle Shop" class="max-h-16 mb-2">
+        <span class="text-blue-900 font-bold text-sm text-center">Paoay Anglers/BP21 Anglers Pod & Tackle Shop</span>
+                </a>
+                <!-- Sponsor 5 -->
+                <a href="https://www.pgffi.org/" target="_blank" rel="noopener" class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition flex flex-col items-center justify-center h-32">
+                    <img src="https://static.wixstatic.com/media/933ea8_9a83b82ceba24fa4b4fe691ffff36673~mv2.png/v1/fill/w_102,h_107,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image.png" alt="Philippine Game Fishing Foundation" class="max-h-16 mb-2">
+                    <span class="text-blue-900 font-bold text-sm text-center">Philippine Game Fishing Foundation</span>
+                </a>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center justify-center bg-blue-100 text-blue-700 px-6 py-3 rounded-lg hover:bg-blue-200 transition">
+                    Become a Sponsor
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weather & Water Conditions Section -->
+    <section id="weather" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Weather & Water Conditions</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Gonzaga Weather -->
+                <div class="weather-card rounded-lg shadow-lg p-6">
+                    <h3 class="text-2xl font-bold text-blue-900 mb-4">Gonzaga Conditions</h3>
+                    <div id="gonzaga-weather" class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div class="text-lg font-semibold text-blue-800">Loading weather data...</div>
+                        </div>
+                    </div>
+                    <div id="gonzaga-tides" class="mt-6">
+                        <h4 class="text-xl font-bold text-blue-900 mb-3">Today's Tides</h4>
+                        <div class="text-blue-800">Loading tide data...</div>
+                        </div>
+                        </div>
+
+                <!-- Santa Ana Weather -->
+                <div class="weather-card rounded-lg shadow-lg p-6">
+                    <h3 class="text-2xl font-bold text-blue-900 mb-4">Santa Ana Conditions</h3>
+                    <div id="santa-ana-weather" class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div class="text-lg font-semibold text-blue-800">Loading weather data...</div>
+                        </div>
+                    </div>
+                    <div id="santa-ana-tides" class="mt-6">
+                        <h4 class="text-xl font-bold text-blue-900 mb-3">Today's Tides</h4>
+                        <div class="text-blue-800">Loading tide data...</div>
+                    </div>
+                    </div>
+                </div>
+                
+            <!-- Weather and Tides API Script -->
+            <script>
+                const WEATHER_API_KEY = 'ca8e0bddc2be427aa3732639250406';
+                const TIDES_API_KEY = '43b1f34b-0ec0-48c7-8b60-910784890e1d'; // You'll need to get this from WorldTides.info
+                const GONZAGA_COORDS = { lat: 18.2594, lon: 121.9997 };
+                const SANTA_ANA_COORDS = { lat: 18.4600, lon: 122.1500 };
+
+                async function fetchWeatherData(coords, elementId) {
+                    try {
+                        const response = await fetch(
+                            `https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${coords.lat},${coords.lon}&aqi=no`
+                        );
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        
+                        const data = await response.json();
+                        
+                        if (!data || !data.current) {
+                            throw new Error('Invalid weather data received');
+                        }
+                        
+                        const element = document.getElementById(elementId);
+                        element.innerHTML = `
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-temperature-high text-red-500 mr-2"></i>
+                                        <span class="text-blue-800">Temperature: ${Math.round(data.current.temp_c)}°C</span>
+                        </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-wind text-blue-500 mr-2"></i>
+                                        <span class="text-blue-800">Wind: ${Math.round(data.current.wind_kph)} km/h</span>
+                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-cloud text-gray-500 mr-2"></i>
+                                        <span class="text-blue-800">Conditions: ${data.current.condition.text}</span>
+                        </div>
+                        </div>
+                                <div class="space-y-2">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-tint text-blue-400 mr-2"></i>
+                                        <span class="text-blue-800">Humidity: ${data.current.humidity}%</span>
+                        </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-compress-alt text-purple-500 mr-2"></i>
+                                        <span class="text-blue-800">Pressure: ${data.current.pressure_mb} hPa</span>
+                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-eye text-gray-600 mr-2"></i>
+                                        <span class="text-blue-800">Visibility: ${data.current.vis_km} km</span>
+                    </div>
+                    </div>
+                </div>
+                        `;
+                    } catch (error) {
+                        console.error('Error fetching weather data:', error);
+                        document.getElementById(elementId).innerHTML = `
+                            <div class="text-red-500">
+                                <p>Error loading weather data. Please try again later.</p>
+                                <p class="text-sm mt-2">Error details: ${error.message}</p>
+            </div>
+                        `;
+                    }
+                }
+
+                async function fetchTideData(coords, elementId) {
+                    try {
+                        const response = await fetch(
+                            `https://www.worldtides.info/api/v2?heights&lat=${coords.lat}&lon=${coords.lon}&start=${Math.floor(Date.now()/1000)}&length=86400&key=${TIDES_API_KEY}`
+                        );
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        
+                        const data = await response.json();
+                        
+                        if (!data || !data.heights) {
+                            throw new Error('Invalid tide data received');
+                        }
+
+                        // Find high and low tides
+                        const tides = data.heights;
+                        const highTides = [];
+                        const lowTides = [];
+                        
+                        for (let i = 1; i < tides.length - 1; i++) {
+                            if (tides[i].height > tides[i-1].height && tides[i].height > tides[i+1].height) {
+                                highTides.push(tides[i]);
+                            }
+                            if (tides[i].height < tides[i-1].height && tides[i].height < tides[i+1].height) {
+                                lowTides.push(tides[i]);
+                            }
+                        }
+
+                        const element = document.getElementById(elementId);
+                        element.innerHTML = `
+                            <div class="grid grid-cols-2 gap-4">
+                    <div>
+                                    <h5 class="font-bold text-blue-800 mb-2">High Tides</h5>
+                                    ${highTides.map(tide => `
+                                        <div class="text-sm text-blue-700">
+                                            ${new Date(tide.dt * 1000).toLocaleTimeString()} - ${tide.height.toFixed(1)}m
+                                        </div>
+                                    `).join('')}
+                    </div>
+                    <div>
+                                    <h5 class="font-bold text-blue-800 mb-2">Low Tides</h5>
+                                    ${lowTides.map(tide => `
+                                        <div class="text-sm text-blue-700">
+                                            ${new Date(tide.dt * 1000).toLocaleTimeString()} - ${tide.height.toFixed(1)}m
+                    </div>
+                                    `).join('')}
+                </div>
+                </div>
+                        `;
+                    } catch (error) {
+                        console.error('Error fetching tide data:', error);
+                        document.getElementById(elementId).innerHTML = `
+                            <div class="text-red-500">
+                                <p>Error loading tide data. Please try again later.</p>
+                                <p class="text-sm mt-2">Error details: ${error.message}</p>
+            </div>
+                        `;
+                    }
+                }
+
+                // Fetch weather and tide data for both locations
+                fetchWeatherData(GONZAGA_COORDS, 'gonzaga-weather');
+                fetchWeatherData(SANTA_ANA_COORDS, 'santa-ana-weather');
+                fetchTideData(GONZAGA_COORDS, 'gonzaga-tides');
+                fetchTideData(SANTA_ANA_COORDS, 'santa-ana-tides');
+            </script>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-blue-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
+                <div class="w-20 h-1 bg-blue-400 mx-auto"></div>
+                <p class="max-w-3xl mx-auto mt-4">Have questions about fishing in Cagayan Valley? Interested in joining our club? Reach out to us!</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <form class="bg-white rounded-lg shadow-xl p-8 text-gray-800">
+                        <h3 class="text-2xl font-bold text-blue-900 mb-6">Send Us a Message</h3>
+                        
+                        <div class="mb-lg-4 mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="name" required="">
+                        </div>
+                        
+                        <div class="mb-lg-4 mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="email" required="">
+                        </div>
+                        
+                        <div class="mb-lg-4 mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="subject">
+                                <option>General Inquiry</option>
+                                <option>Membership Information</option>
+                                <option>Fishing Guide Inquiry</option>
+                                <option>Sponsorship</option>
+                                <option>Conservation Programs</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-lg-4 mb-3">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="message" rows="4" required=""></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-blue-800 p-8 rounded-lg shadow-xl h-full">
+                        <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-1">
+                                    <i class="fas fa-map-marker-alt text-blue-400 text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-bold text-blue-200">Club Address</h4>
+                                    <p class="mt-1">Purok 5, Barangay Calayan, Gonzaga, Cagayan, Philippines 3513</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-1">
+                                    <i class="fas fa-phone-alt text-blue-400 text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-bold text-blue-200">Phone Numbers</h4>
+                                    <p class="mt-1">+63 917 123 4567 (President)<br>+63 920 987 6543 (Secretary)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-1">
+                                    <i class="fas fa-envelope text-blue-400 text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-bold text-blue-200">Email Address</h4>
+                                    <p class="mt-1">info@cagayananglers.com<br>membership@cagayananglers.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-1">
+                                    <i class="fab fa-facebook text-blue-400 text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-bold text-blue-200">Social Media</h4>
+                                    <p class="mt-1">
+                                        <a href="#" class="hover:text-white transition">facebook.com/CagayanAnglers</a><br>
+                                        <a href="#" class="hover:text-white transition">youtube.com/CagayanAnglers</a>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-1">
+                                    <i class="fas fa-clock text-blue-400 text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-bold text-blue-200">Clubhouse Hours</h4>
+                                    <p class="mt-1">Monday to Friday: 8:00 AM - 5:00 PM<br>Saturday: 9:00 AM - 3:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold text-blue-200 mb-4">Visit Us</h4>
+                            <div class="map-container rounded-lg overflow-hidden shadow-lg">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.947397060018!2d121.9972728153436!3d18.57249908645792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sGonzaga%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-950 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-8 h-8">
+                                <path fill="#FFD700" d="M80,50 Q85,40 90,50 Q85,60 80,50 L70,60 L65,55 L75,45 L65,35 L70,30 L80,40 Q85,30 90,40 Q85,50 80,50 Z"/>
+                                <path fill="#93C5FD" d="M40,50 L20,70 L15,65 L35,45 L25,35 L30,30 L50,50 L60,40 L65,45 L55,55 L75,75 L70,80 Z"/>
+                                <circle cx="50" cy="50" r="10" fill="#1E40AF"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl">Cagayan Valley <br>Anglers Club</h3>
+                        </div>
+                    </div>
+                    <p class="text-blue-300 mt-2">Promoting sustainable saltwater fishing and marine conservation in Northern Cagayan since 2015.</p>
+                    
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="w-10 h-10 bg-blue-800 hover:bg-blue-700 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-800 hover:bg-blue-700 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-800 hover:bg-blue-700 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-800 hover:bg-blue-700 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-blue-300 hover:text-white transition">Home</a></li>
+                        <li><a href="#about" class="text-blue-300 hover:text-white transition">About the Club</a></li>
+                        <li><a href="#spots" class="text-blue-300 hover:text-white transition">Fishing Spots</a></li>
+                        <li><a href="#gallery" class="text-blue-300 hover:text-white transition">Catch Gallery</a></li>
+                        <li><a href="#videos" class="text-blue-300 hover:text-white transition">Video Highlights</a></li>
+                        <li><a href="#weather" class="text-blue-300 hover:text-white transition">Weather & Tides</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Club Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-blue-300 hover:text-white transition">Membership Benefits</a></li>
+                        <li><a href="#" class="text-blue-300 hover:text-white transition">Fishing Regulations</a></li>
+                        <li><a href="#" class="text-blue-300 hover:text-white transition">Tournament Schedule</a></li>
+                        <li><a href="#" class="text-blue-300 hover:text-white transition">Conservation Projects</a></li>
+                        <li><a href="#" class="text-blue-300 hover:text-white transition">Photo Submission</a></li>
+                        <li><a href="#" class="text-blue-300 hover:text-white transition">Newsletter Archive</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Newsletter Signup</h4>
+                    <p class="text-blue-300 mb-4">Stay updated with club news, fishing reports, and upcoming events.</p>
+                    
+                    <form class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" placeholder="Your Email" class="flex-grow px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition">Subscribe</button>
+                    </form>
+                    
+                    <div class="mt-6">
+                        <h4 class="text-lg font-bold mb-2">Club Support</h4>
+                        <a href="#" class="inline-flex items-center text-blue-300 hover:text-white transition">
+                            <i class="fas fa-donate mr-2"></i> Donate to Conservation Fund
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-blue-800 mt-12 pt-8 text-center text-blue-300">
+                <p>&copy; 2023 Cagayan Valley Anglers Club. All rights reserved.</p>
+                <p class="mt-2 text-sm">Website designed & developed by CVAC Digital Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Scroll to sections smoothly
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Hide mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Show fishing spots tab
+        function showTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            // Update active state of tab buttons
+            document.querySelectorAll('.tabs button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find the clicked button (based on tabId)
+            const buttons = document.querySelectorAll('.tabs button');
+            for (let btn of buttons) {
+                if (btn.textContent.toLowerCase().includes(tabId.replace('-', ' '))) {
+                    btn.classList.add('active');
+                }
+            }
+        }
+
+        // Show gallery tab
+        function showGalleryTab(tabId) {
+            // Hide all gallery tab contents
+            document.querySelectorAll('.gallery-tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Show selected gallery tab content
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            // Update active state of gallery tab buttons
+            document.querySelectorAll('#gallery .tabs button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find the clicked button (based on tabId)
+            const buttons = document.querySelectorAll('#gallery .tabs button');
+            for (let btn of buttons) {
+                if (btn.textContent.toLowerCase().includes(tabId.replace('-gallery', '').replace('-', ' '))) {
+                    btn.classList.add('active');
+                }
+            }
+        }
+
+        // View more Gonzaga spots
+        document.getElementById('view-more-gonzaga').addEventListener('click', function() {
+            const moreSpots = document.getElementById('more-gonzaga-spots');
+            if (moreSpots.classList.contains('hidden')) {
+                moreSpots.classList.remove('hidden');
+                this.textContent = 'Show Fewer Spots';
+            } else {
+                moreSpots.classList.add('hidden');
+                this.textContent = 'View All 14 Gonzaga Spots';
+            }
+            
+            // Scroll to show the expanded content
+            this.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+        });
+
+        // Set initial active tab
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default tab for fishing spots
+            document.getElementById('default-tab').click();
+            
+            // Set default tab for gallery
+            document.getElementById('default-gallery-tab').click();
+        });
+    </script>
+    <div id="gallery-modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+        <div class="relative max-w-2xl w-full mx-4">
+            <button id="gallery-modal-close" class="absolute top-2 right-2 text-white text-3xl font-bold bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-80">&times;</button>
+            <img id="gallery-modal-img" src="" alt="" class="w-full max-h-[80vh] object-contain rounded-lg">
+        </div>
+    </div>
+    <script>
+    function openModal(src) {
+        document.getElementById('gallery-modal-img').src = src;
+        document.getElementById('gallery-modal').classList.remove('hidden');
+    }
+    document.getElementById('gallery-modal-close').onclick = function() {
+        document.getElementById('gallery-modal').classList.add('hidden');
+    };
+    document.getElementById('gallery-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.classList.add('hidden');
+        }
+        });
+    </script>
+</body>
+</html>
