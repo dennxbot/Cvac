@@ -408,24 +408,24 @@
                     <!-- Spot 1 -->
                     <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
                         <div class="map-container">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.9489460618993!2d122.40704361534361!3d18.57212508645815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5fb5f0bbdb75%3A0x5f87b10b7c8d29aa!2sPalaui%20Island!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.947397060018!2d121.9972728153436!3d18.57249908645792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5f6fef3bf3f9%3A0x1b6d6c8bb19b9e4e!2sSanta%20Ana%2C%20Cagayan!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                         </div>
                     <div class="p-4">
-                            <h4 class="text-xl font-bold text-blue-900 mb-2">Palaui Island</h4>
-                            <p class="text-blue-800">Best for: Dogtooth Tuna, Wahoo</p>
-                            <p class="text-gray-600 text-sm mt-2">World-class game fishing around this protected island. Expect strong currents.</p>
+                            <h4 class="text-xl font-bold text-blue-900 mb-2">Santa Ana, Cagayan</h4>
+                            <p class="text-blue-800">Explore the whole municipality</p>
+                            <p class="text-gray-600 text-sm mt-2">View the full map of Santa Ana to discover more fishing spots, resorts, and natural attractions in the area.</p>
                     </div>
                 </div>
                 
                     <!-- Spot 2 -->
                     <div class="fishing-spot-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition">
                         <div class="map-container">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.9489460618993!2d122.40704361534361!3d18.57212508645815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5fb5f0bbdb75%3A0x5f87b10b7c8d29aa!2sApulagan%20Island!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.9489460618993!2d122.40704361534361!3d18.57212508645815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x338b5fb5f0bbdb75%3A0x5f87b10b7c8d29aa!2sPalaui%20Island!5e0!3m2!1sen!2sph!4v1612345678901!5m2!1sen!2sph" class="responsive-map" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                         </div>
                     <div class="p-4">
-                            <h4 class="text-xl font-bold text-blue-900 mb-2">Apulagan Island</h4>
-                            <p class="text-blue-800">Best for: Coral Trout, Emperor</p>
-                            <p class="text-gray-600 text-sm mt-2">Healthy reef system with excellent bottom fishing. Protected from most winds.</p>
+                            <h4 class="text-xl font-bold text-blue-900 mb-2">Palaui Island</h4>
+                            <p class="text-blue-800">Best for: Dogtooth Tuna, Wahoo</p>
+                            <p class="text-gray-600 text-sm mt-2">World-class game fishing around this protected island. Expect strong currents.</p>
                     </div>
                 </div>
                 
@@ -964,34 +964,69 @@
             
             <div class="flex flex-col lg:flex-row gap-12">
                 <div class="lg:w-1/2">
-                    <form class="bg-white rounded-lg shadow-xl p-8 text-gray-800">
+                    <!-- 
+                    UseBasin Integration Instructions:
+                    1. Create an account at https://usebasin.com/
+                    2. Create a new form in your dashboard
+                    3. Copy the form ID (looks like XXXXXXXX)
+                    4. Replace YOUR_USEBASIN_FORM_ID below with your actual form ID
+                    5. In UseBasin dashboard settings for this form:
+                       - Configure email notifications
+                       - Set up auto-responses
+                       - Enable spam protection
+                    
+                    Note: For advanced usage, UseBasin provides an API to access submissions:
+                    https://usebasin.com/api/v1/submissions?filter_by=All&form_id={form_id}&page=1&query=&api_token={form_api_token}
+                    The API token can be found in the Integrations section of your form dashboard.
+                    -->
+                    <form class="bg-white rounded-lg shadow-xl p-8 text-gray-800" id="contactForm" action="https://usebasin.com/f/54e12372420f" method="POST" onsubmit="return validateForm(event)">
                         <h3 class="text-2xl font-bold text-blue-900 mb-6">Send Us a Message</h3>
+                        
+                        <!-- Honeypot field - hidden from real users but bots will fill it -->
+                        <div class="hidden">
+                            <label for="website">Website (Leave this empty)</label>
+                            <input type="text" id="website" name="website" autocomplete="off">
+                        </div>
                         
                         <div class="mb-lg-4 mb-3">
                             <label for="name" class="form-label">Your Name</label>
-                            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="name" required="">
+                            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="name" name="name" required="">
                         </div>
                         
                         <div class="mb-lg-4 mb-3">
                             <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="email" required="">
+                            <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="email" name="email" required="">
                         </div>
                         
                         <div class="mb-lg-4 mb-3">
                             <label for="subject" class="form-label">Subject</label>
-                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="subject">
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="subject" name="subject">
                                 <option>General Inquiry</option>
                                 <option>Membership Information</option>
                                 <option>Fishing Guide Inquiry</option>
                                 <option>Sponsorship</option>
-                                <option>Conservation Programs</option>
                             </select>
                         </div>
                         
                         <div class="mb-lg-4 mb-3">
                             <label for="message" class="form-label">Your Message</label>
-                            <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="message" rows="4" required=""></textarea>
+                            <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="message" name="message" rows="4" required=""></textarea>
                         </div>
+                        
+                        <!-- Simple math CAPTCHA -->
+                        <div class="mb-lg-4 mb-3">
+                            <label for="captcha" class="form-label">Anti-Spam Check: <span id="captcha-question"></span></label>
+                            <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" id="captcha-answer" required="">
+                            <input type="hidden" id="captcha-expected" value="">
+                        </div>
+                        
+                        <!-- UseBasin configuration fields -->
+                        <input type="hidden" name="subject" value="CVAC Website Contact Form">
+                        <input type="hidden" name="redirect_to" value="#contact">
+                        
+                        <div id="form-error" class="hidden mb-4 p-3 bg-red-100 text-red-700 rounded-lg"></div>
+                        <div id="form-success" class="hidden mb-4 p-3 bg-green-100 text-green-700 rounded-lg">Your message has been sent successfully! We'll get back to you soon.</div>
+                        <div id="form-loading" class="hidden mb-4 p-3 bg-blue-100 text-blue-700 rounded-lg">Sending your message...</div>
                         
                         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition">Send Message</button>
                     </form>
@@ -1298,6 +1333,115 @@
             // Start the slideshow
             showSlide(0);
             setInterval(nextSlide, 5000); // Change image every 5 seconds
+        });
+    </script>
+    
+    <!-- Contact Form Anti-Spam Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate a simple math CAPTCHA
+            function generateCaptcha() {
+                const num1 = Math.floor(Math.random() * 10) + 1;
+                const num2 = Math.floor(Math.random() * 10) + 1;
+                const captchaQuestion = document.getElementById('captcha-question');
+                const captchaExpected = document.getElementById('captcha-expected');
+                
+                captchaQuestion.textContent = `What is ${num1} + ${num2}? (Anti-spam check)`;
+                captchaExpected.value = num1 + num2;
+            }
+            
+            // Call once on page load
+            if (document.getElementById('captcha-question')) {
+                generateCaptcha();
+            }
+            
+            // Form validation and submission function
+            window.validateForm = function(event) {
+                event.preventDefault();
+                
+                const form = document.getElementById('contactForm');
+                const errorDiv = document.getElementById('form-error');
+                const successDiv = document.getElementById('form-success');
+                const loadingDiv = document.getElementById('form-loading');
+                
+                // Reset messages
+                errorDiv.classList.add('hidden');
+                successDiv.classList.add('hidden');
+                loadingDiv.classList.add('hidden');
+                
+                // Check honeypot field
+                const honeypot = document.getElementById('website');
+                if (honeypot && honeypot.value) {
+                    // Bot detected! Pretend success but don't submit
+                    successDiv.classList.remove('hidden');
+                    return false;
+                }
+                
+                // Check CAPTCHA
+                const captchaAnswer = document.getElementById('captcha-answer');
+                const captchaExpected = document.getElementById('captcha-expected');
+                
+                if (captchaAnswer && captchaExpected) {
+                    if (parseInt(captchaAnswer.value) !== parseInt(captchaExpected.value)) {
+                        errorDiv.textContent = 'Incorrect answer to the math problem. Please try again.';
+                        errorDiv.classList.remove('hidden');
+                        generateCaptcha(); // Generate a new CAPTCHA
+                        return false;
+                    }
+                }
+                
+                // Check message for spam patterns
+                const message = document.getElementById('message').value.toLowerCase();
+                const spamPatterns = ['viagra', 'casino', 'lottery', 'winner', 'buy now', 'free offer'];
+                
+                for (const pattern of spamPatterns) {
+                    if (message.includes(pattern)) {
+                        errorDiv.textContent = 'Your message contains content that appears to be spam. Please revise and try again.';
+                        errorDiv.classList.remove('hidden');
+                        return false;
+                    }
+                }
+                
+                // Show loading message
+                loadingDiv.classList.remove('hidden');
+                
+                // Get user's email for confirmation
+                const userEmail = document.getElementById('email').value;
+                const userName = document.getElementById('name').value;
+                
+                // Submit the form using Fetch API to avoid page reload
+                fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Success! Hide loading and show success message
+                        loadingDiv.classList.add('hidden');
+                        successDiv.innerHTML = `Thank you, ${userName}! Your message has been sent successfully. <br>We'll get back to you at ${userEmail} soon.`;
+                        successDiv.classList.remove('hidden');
+                        form.reset();
+                        generateCaptcha();
+                        
+                        // Scroll to the success message
+                        successDiv.scrollIntoView({behavior: 'smooth', block: 'center'});
+                        return;
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .catch(error => {
+                    // Error occurred
+                    loadingDiv.classList.add('hidden');
+                    errorDiv.textContent = 'There was a problem sending your message. Please try again later.';
+                    errorDiv.classList.remove('hidden');
+                    console.error('Error:', error);
+                });
+                
+                return false;
+            };
         });
     </script>
 </body>
